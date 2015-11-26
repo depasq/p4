@@ -14,3 +14,19 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+if (App::environment('local')) {
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+};
+
+if(App::environment('local')) {
+
+    Route::get('/drop', function() {
+
+        DB::statement('DROP database rws');
+        DB::statement('CREATE database rws');
+
+        return 'Dropped rws; created rws.';
+    });
+
+};
