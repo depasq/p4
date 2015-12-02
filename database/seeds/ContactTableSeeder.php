@@ -17,6 +17,7 @@ class ContactTableSeeder extends Seeder
             DB::table('contact_info')->insert([
                 'created_at' => Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+                'reviewer_id' => $i,
                 'institution' => 'Smithsonian Astrophysical Observatory',
                 'street' => $faker->streetAddress,
                 'city' => $faker->city,
@@ -26,6 +27,7 @@ class ContactTableSeeder extends Seeder
                 'secondary_email' => $faker->email,
                 'primary_phone' => $faker->phoneNumber,
                 'secondary_phone' => $faker->phoneNumber,
+                'reviewer_id' => $i+1,
             ]);
         };
     }

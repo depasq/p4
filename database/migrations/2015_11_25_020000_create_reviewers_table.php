@@ -31,6 +31,6 @@ class CreateReviewersTable extends Migration
      */
     public function down()
     {
-        //
+        //Schema::drop('reviewers');
     }
 }

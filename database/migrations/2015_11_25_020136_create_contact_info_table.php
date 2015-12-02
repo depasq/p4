@@ -35,6 +35,6 @@ class CreateContactInfoTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('contact_info');
     }
 }
