@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-if (App::environment('local')) {
-    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-};
+Route::get('/', function () {
+    return view('splash');
+});
 
 if(App::environment('local')) {
 
@@ -28,5 +28,7 @@ if(App::environment('local')) {
 
         return 'Dropped rws; created rws.';
     });
+
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 };
