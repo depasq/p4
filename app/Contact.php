@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    public function reviewers() {
+    public function users() 
+    {
         // Get a reviewer from contact info
-        return $this->belongsTo('\PeerReview\Reviewer')->withTimestamps();
+        return $this->belongsTo('\PeerReview\User')->withTimestamps();
+    }
 }

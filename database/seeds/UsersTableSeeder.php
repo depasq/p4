@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
-class ReviewersTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class ReviewersTableSeeder extends Seeder
     {
         $faker = Faker::create();
         for ($i=0; $i<=10; $i++) {
-            DB::table('reviewers')->insert([
+            DB::table('users')->insert([
                 'created_at' => Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
                 'first' => $faker->firstName,

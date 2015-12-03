@@ -12,7 +12,16 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('first');
+            $table->string('last');
+            $table->string('prefix');
+            $table->string('suffix');
+            $table->string('password', 60);
+            $table->rememberToken();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +31,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('reviewers');
+        //Schema::drop('reviewers');
     }
 }

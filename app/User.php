@@ -16,6 +16,15 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
+    public function contact_info() {
+        # Each reviewer has one set of contact info
+        return $this->hasOne('\PeerReview\Contact')->withTimestamps();
+    }
+    public function areas() {
+        # Each reviewer has many Areas of Expertise
+        # Define a many-to-many relationship.
+        return $this->belongsToMany('\PeerReview\Area')->withTimestamps();
+    }
     /**
      * The database table used by the model.
      *

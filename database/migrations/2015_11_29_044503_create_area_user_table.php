@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAreaReviewerTable extends Migration
+class CreateAreaUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,19 +12,19 @@ class CreateAreaReviewerTable extends Migration
      */
      public function up()
      {
-         Schema::create('area_reviewer', function (Blueprint $table) {
+         Schema::create('area_user', function (Blueprint $table) {
 
              $table->increments('id');
              $table->timestamps();
 
-             # `reviewer_id` and `area_id` will be foreign keys, so they have to be unsigned
+             # `user_id` and `area_id` will be foreign keys, so they have to be unsigned
              #  Note how the field names here correspond to the tables they will connect...
-             # `reviewer_id` will reference the `reviewers table` and `area_id` will reference the `areas` table.
-             $table->integer('reviewer_id')->unsigned();
+             # `user_id` will reference the `reviewers table` and `area_id` will reference the `areas` table.
+             $table->integer('user_id')->unsigned();
              $table->integer('area_id')->unsigned();
 
              # Make foreign keys
-             $table->foreign('reviewer_id')->references('id')->on('reviewers');
+             $table->foreign('user_id')->references('id')->on('users');
              $table->foreign('area_id')->references('id')->on('areas');
          });
      }
@@ -36,6 +36,6 @@ class CreateAreaReviewerTable extends Migration
       */
      public function down()
      {
-         Schema::drop('area_reviewer');
+         Schema::drop('area_user');
      }
 }
