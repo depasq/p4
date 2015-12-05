@@ -10,7 +10,7 @@
   </title>
   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css" type='text/css'>
   <link rel="stylesheet" href="css/side-menu.css" type='text/css'>
-  <link rel="stylesheet" href="css/p3.css" type='text/css'>
+  <link rel="stylesheet" href="css/p4.css" type='text/css'>
 </head>
 
 <body>
@@ -66,7 +66,7 @@
                     existing, PHP-based website that is sorely in need of updating. In an effort to contribute
                     something worthwhile to the Chandra program with my final project, I’m going to begin the
                     process of rewriting the peer review website as a Laravel application. </p>
-                    <a href="#">Enter Peer Review Site</a>
+                    <a href="welcome">Enter Peer Review Site</a>
           </div>
     </section>
 

@@ -19,6 +19,15 @@ Route::get('/', function () {
     return view('splash');
 });
 
+Route::get('welcome', function () {
+    return view('welcome');
+});
+
+Route::get('login', 'UsersController@login');
+Route::post('login', 'UsersController@postLogin');
+Route::get('logout', 'UsersController@logout');
+Route::get('profile', 'UsersController@profile');
+
 if(App::environment('local')) {
 
     Route::get('/drop', function() {

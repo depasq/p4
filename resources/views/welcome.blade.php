@@ -1,45 +1,15 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('layouts.master')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('title')
+    Chandra Peer Review | Welcome
+@stop
 
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
-            </div>
-        </div>
-    </body>
-</html>
+@section('content')
+<h1>Welcome to Chandra Peer Review</h1>
+<p>Each panel will include 5-7 panelists, one chair and one deputy chair.
+    We aim for 10 primary and 10 secondary proposals per panel member. The
+    chair will not be given a full load. Proposals will be sent to reviewers
+    4 weeks prior to the review. We request preliminary grades to be sent
+    electronically to the CXC in advance of the review in order to aid with
+    prioritization during the review itself.</p>
+@stop

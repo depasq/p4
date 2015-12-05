@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -8,64 +8,86 @@
   <title>
      @yield('title',"Chandra Peer Review")
   </title>
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css" type='text/css'>
-  <link rel="stylesheet" href="css/side-menu.css" type='text/css'>
-  <link rel="stylesheet" href="css/p3.css" type='text/css'>
+  <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" type='text/css'> -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/p4.css" type='text/css'>
+
     @yield('head')
+
 </head>
 
 <body>
+<div class="page">
+    <!-- Navigation -->
+    <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- <img src="img/logo.png"></img> -->
+                    <a class="navbar-brand" href="welcome">Chandra Cycle 18 Peer Review</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="#">About</a>
+                        </li>
+                        <li>
+                            <a href="#">Travel Info</a>
+                        </li>
+                        <li>
+                            <a href="#">Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (Auth::check())
+                            <li><a href="/logout">Log Out</a></li>
+                            <li><a href="/profile">{{ Auth::user()->first_name }}</a></li>
+                        @else
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/register">Register</a></li>
+                        @endif
+                    </ul>
 
-  <div id="layout">
-    <!-- Menu toggle -->
-    <a href="#menu" id="menuLink" class="menu-link">
-      <!-- Hamburger icon -->
-      <span></span>
-    </a>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
 
-    <div id="menu">
-      <div class="pure-menu">
-        <a class="pure-menu-heading" href="http://dwa15.jdepasquale.com/">DWA15</a>
-        <ul class="pure-menu-list">
-          <li class="pure-menu-item"><a href="http://p1.dwa15.jdepasquale.com/" class="pure-menu-link">Project 1</a>
-            <ul class="pure-menu-children">
-              <li class="pure-menu-item ghub"><a href="https://github.com/depasq/p1" target="_blank" class="pure-menu-link">GitHub</a></li>
-            </ul>
-          </li>
-          <li class="pure-menu-item"><a href="http://p2.dwa15.jdepasquale.com/" class="pure-menu-link">Project 2</a>
-            <ul class="pure-menu-children">
-              <li class="pure-menu-item ghub"><a href="https://github.com/depasq/p2" target="_blank" class="pure-menu-link">GitHub</a></li>
-            </ul>
-          </li>
-          <li class="pure-menu-item"><a href="http://p3.dwa15.jdepasquale.com/" class="pure-menu-link">Project 3</a>
-            <ul class="pure-menu-children">
-              <li class="pure-menu-item ghub"><a href="https://github.com/depasq/p3" target="_blank" class="pure-menu-link">GitHub</a></li>
-            </ul>
-          </li>
-          <li class="pure-menu-item"><a href="http://p4.dwa15.jdepasquale.com/" class="pure-menu-link">Project 4</a>
-            <ul class="pure-menu-children">
-              <li class="pure-menu-item ghub"><a href="https://github.com/depasq/p4" target="_blank" class="pure-menu-link">GitHub</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    @if(Session::has('message'))
+                    <div class="alert-box success">
+                        <h2>{{ Session::get('message') }}</h2>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Page Content -->
+            {{-- Main page content will be yielded here --}}
+            @yield('content')
+        </div>
     </div>
 
-    <div id="main">
+    <!-- jQuery Version 1.11.1 -->
+    <script src="js/jquery.js"></script>
 
-    <section>
-        {{-- Main page content will be yielded here --}}
-        @yield('content')
-    </section>
-
-   </div>
-
-    <script src="js/ui.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
     {{-- Yield any page specific JS files or anything else you might want at the end of the body --}}
     @yield('body')
-
-  </div>
+</div>
 </body>
-
 </html>
