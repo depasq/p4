@@ -24,14 +24,14 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     # Where should the user be redirected to if their login succeeds?
-    protected $redirectPath = '/';
+    protected $redirectPath = '/profile';
 
     # Where should the user be redirected to if their login fails?
     protected $loginPath = '/login';
 
     # Where should the user be redirected to after logging out?
-    protected $redirectAfterLogout = '/';
-    
+    protected $redirectAfterLogout = '/welcome';
+
     /**
      * Create a new authentication controller instance.
      *
@@ -51,7 +51,8 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'first' => 'required|max:255',
+            'last' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -65,10 +66,19 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user = User::create([
+            'first' => $data['first'],
+            'last' => $data['last'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+        $profile = new \PeerReview\Profile();
+        $travel = new \PeerReview\Travel();
+        $travel->user_id = $user->id;
+        $profile->user_id = $user->id;
+        $user->travel()->save($travel);
+        $user->profile()->save($profile);
+        return $user;
     }
+
 }

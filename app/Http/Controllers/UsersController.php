@@ -14,103 +14,65 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login()
+
+    public function getProfile()
     {
-         return view('user.login');
+        return view('auth.profile');
     }
-
-    public function postLogin(Request $request)
+    public function postProfile(Request $request)
     {
-        // $this->validate($request, [
-        //     // 'numGraphs' => 'numeric|max:8',
-        // ]);
+        $user = \PeerReview\User::find(\Auth::user()->id);
 
-        if(\Auth::attempt(['email' => $request['email'], 'password' => $request['password']]))
-        {
-            return \Redirect::to('profile');
+        $user->first = $request['first'];
+        $user->last = $request['last'];
+        $user->email = $request['email'];
+        $user->profile->institution = $request['institution'];
+        $user->profile->street = $request['street'];
+        $user->profile->city = $request['city'];
+        $user->profile->state = $request['state'];
+        $user->profile->zip = $request['zip'];
+        $user->profile->country = $request['country'];
+        $user->save();
+        $user->profile->save();
+        \Session::flash('flash_message', 'Your profile information has been updated.');
+
+        // return view('auth.profile');
+        return redirect()->back()->with('user', $user);
+    }
+    public function getTravel()
+    {
+        return view('auth.travel');
+    }
+    public function postTravel(Request $request)
+    {
+        $user = \PeerReview\User::find(\Auth::user()->id);
+
+        if ($request['submit'] == 'Update Travel Prefs'){
+            $user->travel->fromcity = $request['fromcity'];
+            $user->travel->fromstate = $request['fromstate'];
+            $user->travel->fromcountry = $request['fromcountry'];
+            $user->travel->arrivedate = $request['arrivedate'];
+            $user->travel->tocity = $request['tocity'];
+            $user->travel->tostate = $request['tostate'];
+            $user->travel->tocountry = $request['tocountry'];
+            $user->travel->departdate = $request['departdate'];
+            $user->save();
+            $user->travel->save();
+            \Session::flash('flash_message', 'Your travel information has been updated.');
         }
-            return \Redirect::to('login')
-                ->with('email', $request['email'])
-                ->with('password', $request['password']);
-    }
-    public function logout()
-    {
-        if (\Auth::check()) {
-            \Auth::logout();
+        else {
+            $user->travel->fromcity = '';
+            $user->travel->fromstate = '';
+            $user->travel->fromcountry = '';
+            $user->travel->arrivedate = '';
+            $user->travel->tocity = '';
+            $user->travel->tostate = '';
+            $user->travel->tocountry = '';
+            $user->travel->departdate = '';
+            $user->save();
+            $user->travel->save();
+            \Session::flash('flash_message', 'Your have cleared your travel information.');
         }
-         return \Redirect('login');
-    }
-
-    public function profile()
-    {
-         return view('user.profile');
-    }
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->back()->with('user', $user);
     }
 }

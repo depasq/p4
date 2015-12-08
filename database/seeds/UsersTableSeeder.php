@@ -17,7 +17,6 @@ class UsersTableSeeder extends Seeder
             DB::table('users')->insert([
                 'created_at' => Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-                'username' => $faker->username,
                 'first' => $faker->firstName,
                 'last' => $faker->lastName,
                 'prefix' => 'Dr.',
@@ -27,17 +26,17 @@ class UsersTableSeeder extends Seeder
             ]);
         };
         $user = \PeerReview\User::firstOrCreate(['first' => 'Jill']);
+        $user->prefix = 'Dr.';
         $user->first = 'Jill';
         $user->last = 'Harvard';
-        $user->username = 'jill';
         $user->email = 'jill@harvard.edu';
         $user->password = \Hash::make('helloworld');
         $user->save();
 
         $user = \PeerReview\User::firstOrCreate(['first' => 'Jamal']);
+        $user->prefix = 'Dr.';
         $user->first = 'Jamal';
         $user->last = 'Harvard';
-        $user->username = 'jamal';
         $user->email = 'jamal@harvard.edu';
         $user->password = \Hash::make('helloworld');
         $user->save();

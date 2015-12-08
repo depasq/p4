@@ -148,6 +148,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        'PeerReview\Providers\ComposerServiceProvider',
     ],
 
     /*

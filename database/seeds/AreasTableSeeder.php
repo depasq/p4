@@ -15,7 +15,7 @@ class AreasTableSeeder extends Seeder
             'WD Binaries and CV', 'SN, SNR and Isolated NS', 'Galaxies: Populations',
             'Active Galaxies and Quasars', 'Clusters of Galaxies',
             'Extragalctic Diffuse Emission and Surveys', 'Galactic Diffuse Emission and Surveys',
-            'Pundit', 'Galaxies: Diffuse Emission',
+            'Galaxies: Diffuse Emission',
         );
         for ($i=0; $i<=count($areas)-1; $i++) {
             DB::table('areas')->insert([

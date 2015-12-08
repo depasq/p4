@@ -11,22 +11,42 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
+#General Views available to all users
 Route::get('/', function () {
-    return view('splash');
+    return view('general.splash');
+});
+Route::get('/welcome', function () {
+    return view('general.welcome');
+});
+Route::get('/contact', function () {
+    return view('general.contact');
+});
+Route::get('/about', function () {
+    return view('general.about');
 });
 
-Route::get('welcome', function () {
-    return view('welcome');
-});
+# Show login form
+Route::get('/login', 'Auth\AuthController@getLogin');
+# Process login form
+Route::post('/login', 'Auth\AuthController@postLogin');
+# Process logout
+Route::get('/logout', 'Auth\AuthController@getLogout');
+# Show registration form
+Route::get('/register', 'Auth\AuthController@getRegister');
+# Process registration form
+Route::post('/register', 'Auth\AuthController@postRegister');
 
-Route::get('login', 'UsersController@login');
-Route::post('login', 'UsersController@postLogin');
-Route::get('logout', 'UsersController@logout');
-Route::get('profile', 'UsersController@profile');
+# Restrict these routes to logged in users
+Route::group(['middleware' => 'auth'], function() {
+    # Show Profile form
+    Route::get('/profile', 'UsersController@getProfile');
+    # Process Profile Form
+    Route::post('/profile', 'UsersController@postProfile');
+    # Show Travel Form
+    Route::get('/travel', 'UsersController@getTravel');
+    # Process Travel Form
+    Route::post('/travel', 'UsersController@postTravel');
+});
 
 if(App::environment('local')) {
 
