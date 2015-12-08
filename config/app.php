@@ -149,6 +149,7 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         'PeerReview\Providers\ComposerServiceProvider',
+        'Zizaco\Entrust\EntrustServiceProvider',
     ],
 
     /*
@@ -200,6 +201,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Entrust' => 'Zizaco\Entrust\EntrustFacade',
     ],
 
 ];

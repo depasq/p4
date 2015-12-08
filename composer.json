@@ -10,7 +10,8 @@
         "laravelcollective/html": "^5.1",
         "barryvdh/laravel-debugbar": "^2.0",
         "rap2hpoutre/laravel-log-viewer": "^0.4.3",
-        "fzaninotto/faker": "^1.5"
+        "fzaninotto/faker": "^1.5",
+        "zizaco/entrust": "dev-laravel-5"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

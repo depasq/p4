@@ -25,14 +25,32 @@ class UsersTableSeeder extends Seeder
                 'password' => $faker->password,
             ]);
         };
+        $admin = new PeerReview\Role();
+        $admin->name         = 'admin';
+        $admin->display_name = 'User Administrator'; // optional
+        $admin->description  = 'User is allowed to manage and edit other users'; // optional
+        $admin->save();
+
+        $editUser = new PeerReview\Permission();
+        $editUser->name         = 'edit-user';
+        $editUser->display_name = 'Edit Users'; // optional
+        // Allow a user to...
+        $editUser->description  = 'edit existing users'; // optional
+        $editUser->save();
+
+        $admin->attachPermission($editUser);
+
+        //Make Jill an admin of the site who can manage users
         $user = \PeerReview\User::firstOrCreate(['first' => 'Jill']);
         $user->prefix = 'Dr.';
         $user->first = 'Jill';
         $user->last = 'Harvard';
         $user->email = 'jill@harvard.edu';
         $user->password = \Hash::make('helloworld');
+        $user->attachRole($admin);
         $user->save();
 
+        //Jamal is a regular user with no admin permissions
         $user = \PeerReview\User::firstOrCreate(['first' => 'Jamal']);
         $user->prefix = 'Dr.';
         $user->first = 'Jamal';

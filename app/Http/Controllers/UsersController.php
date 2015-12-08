@@ -17,7 +17,24 @@ class UsersController extends Controller
 
     public function getProfile()
     {
-        return view('auth.profile');
+        $user = \PeerReview\User::with('areas')->find(\Auth::user()->id);
+
+        // Grab all Areas of expertise to display on checkboxes
+        $areaModel = new \PeerReview\Area();
+        $areas_for_checkbox = $areaModel->getAreasForCheckboxes();
+
+
+        //Use this array to show which areas are already associated with the user
+        $areas_for_this_user = [];
+        foreach ($user->areas as $area) {
+            $areas_for_this_user[] = $area->area;
+        }
+
+        return view('auth.profile')
+            ->with([
+                'areas_for_checkbox' => $areas_for_checkbox,
+                'areas_for_this_user' => $areas_for_this_user,
+            ]);
     }
     public function postProfile(Request $request)
     {
@@ -34,11 +51,21 @@ class UsersController extends Controller
         $user->profile->country = $request['country'];
         $user->save();
         $user->profile->save();
-        \Session::flash('flash_message', 'Your profile information has been updated.');
 
-        // return view('auth.profile');
+        if ($request->areas)
+        {
+            $areas = $request->areas;
+        }
+        else
+        {
+            $areas = [];
+        }
+        $user->areas()->sync($areas);
+
+        \Session::flash('flash_message', 'Your profile information has been updated.');
         return redirect()->back()->with('user', $user);
     }
+    
     public function getTravel()
     {
         return view('auth.travel');
