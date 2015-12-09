@@ -23,6 +23,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-5"><br>
+                    <h4>Contact Information</h4>
                     {!!  Form::open( ['url' => 'profile', 'method' => 'post'] ) !!}
                     <div class="form-group">
                         {!! Form::label('first','First Name') !!}
@@ -63,6 +64,7 @@
                 </div>
                 <div class="col-md-7"><br>
                     <h4>Areas of Expertise</h4>
+                    <p>Please indicate areas where you would be comfortable serving as a reviewer.</p>
                     <div class='form-group'>
                         @foreach($areas_for_checkbox as $area_id => $area)
                           <?php $checked = (in_array($area['area'],$areas_for_this_user)) ? 'CHECKED' : '' ?>
@@ -71,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <br><br>
+            <br>
             {!! Form::submit('Update My Info', ['class' => 'btn btn-primary']) !!}
             {!!  Form::close() !!}
         </div>

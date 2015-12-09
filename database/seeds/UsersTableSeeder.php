@@ -13,23 +13,18 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        for ($i=0; $i<=10; $i++) {
-            DB::table('users')->insert([
-                'created_at' => Carbon\Carbon::now()->toDateTimeString(),
-                'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-                'first' => $faker->firstName,
-                'last' => $faker->lastName,
-                'prefix' => 'Dr.',
-                'suffix' => $faker->suffix,
-                'email' => $faker->email,
-                'password' => $faker->password,
-            ]);
-        };
+
         $admin = new PeerReview\Role();
         $admin->name         = 'admin';
         $admin->display_name = 'User Administrator'; // optional
         $admin->description  = 'User is allowed to manage and edit other users'; // optional
         $admin->save();
+
+        $standard = new PeerReview\Role();
+        $standard->name         = 'standard';
+        $standard->display_name = 'Standard User'; // optional
+        $standard->description  = 'User is allowed to manage their own data'; // optional
+        $standard->save();
 
         $editUser = new PeerReview\Permission();
         $editUser->name         = 'edit-user';
@@ -39,6 +34,18 @@ class UsersTableSeeder extends Seeder
         $editUser->save();
 
         $admin->attachPermission($editUser);
+
+        for ($i=0; $i<=10; $i++) {
+            $user = \PeerReview\User::create();
+            $user->prefix = 'Dr.';
+            $user->suffix = $faker->suffix;
+            $user->first = $faker->firstName;
+            $user->last = $faker->lastName;
+            $user->email = $faker->email;
+            $user->password = $faker->password;
+            $user->attachRole($standard);
+            $user->save();
+        };
 
         //Make Jill an admin of the site who can manage users
         $user = \PeerReview\User::firstOrCreate(['first' => 'Jill']);
@@ -57,6 +64,7 @@ class UsersTableSeeder extends Seeder
         $user->last = 'Harvard';
         $user->email = 'jamal@harvard.edu';
         $user->password = \Hash::make('helloworld');
+        $user->attachRole($standard);
         $user->save();
     }
 }

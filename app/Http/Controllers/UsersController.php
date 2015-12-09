@@ -52,6 +52,7 @@ class UsersController extends Controller
         $user->save();
         $user->profile->save();
 
+        // update areas of expertise if there are any otherwise save emtpy array
         if ($request->areas)
         {
             $areas = $request->areas;
@@ -65,7 +66,7 @@ class UsersController extends Controller
         \Session::flash('flash_message', 'Your profile information has been updated.');
         return redirect()->back()->with('user', $user);
     }
-    
+
     public function getTravel()
     {
         return view('auth.travel');
@@ -74,7 +75,7 @@ class UsersController extends Controller
     {
         $user = \PeerReview\User::find(\Auth::user()->id);
 
-        if ($request['submit'] == 'Update Travel Prefs'){
+        if ($request['submit'] == 'Update Travel Prefs') {
             $user->travel->fromcity = $request['fromcity'];
             $user->travel->fromstate = $request['fromstate'];
             $user->travel->fromcountry = $request['fromcountry'];

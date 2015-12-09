@@ -24,8 +24,15 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     # Where should the user be redirected to if their login succeeds?
-    protected $redirectPath = '/profile';
-
+    //protected $redirectPath = '/profile';
+    protected function authenticated($user)
+    {
+        $user = \PeerReview\User::find(\Auth::user()->id);
+        if($user->hasRole('admin')) {
+            return redirect('/dashboard');
+        }
+        return redirect('/profile');
+    }
     # Where should the user be redirected to if their login fails?
     protected $loginPath = '/login';
 
@@ -72,12 +79,14 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+        $standard = \PeerReview\Role::find('2');
         $profile = new \PeerReview\Profile();
         $travel = new \PeerReview\Travel();
         $travel->user_id = $user->id;
         $profile->user_id = $user->id;
         $user->travel()->save($travel);
         $user->profile()->save($profile);
+        $user->attachRole($standard);
         return $user;
     }
 

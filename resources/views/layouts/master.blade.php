@@ -45,9 +45,15 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         @if (Auth::check())
-                            <li>
-                                <a href="/travel">Travel</a>
-                            </li>
+                            @if($user->hasRole('standard'))
+                                <li>
+                                    <a href="/travel">Travel</a>
+                                </li>
+                            @elseif($user->hasRole('admin'))
+                                <li>
+                                    <a href="/manage">Manage Reviewers</a>
+                                </li>
+                            @endif
                         @endif
                         <li>
                             <a href="/contact">Contact</a>
@@ -58,7 +64,11 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @if (Auth::check())
-                            <li><a href="/profile">{!! $user->first !!}'s Profile</a></li>
+                            @if($user->hasRole('admin'))
+                                <li><a href="/dashboard">{!! $user->first !!}'s Dashboard</a></li>
+                            @elseif($user->hasRole('standard'))
+                                <li><a href="/profile">{!! $user->first !!}'s Profile</a></li>
+                            @endif
                             <li><a href="/logout">Log Out</a></li>
                         @else
                             <li><a href="/login">Login</a></li>
@@ -98,7 +108,7 @@
 
     {{-- Yield any page specific JS files or anything else you might want at the end of the body --}}
     @yield('body')
-    
+
 </div>
 </body>
 </html>

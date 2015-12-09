@@ -36,8 +36,18 @@ Route::get('/register', 'Auth\AuthController@getRegister');
 # Process registration form
 Route::post('/register', 'Auth\AuthController@postRegister');
 
-# Restrict these routes to logged in users
-Route::group(['middleware' => 'auth'], function() {
+// Admin routes
+Route::group(['middleware' => ['role:admin']], function () {
+    # Show Profile form
+    Route::get('/dashboard', 'AdminController@getDashboard');
+    Route::post('/dashboard', 'AdminController@postDashboard');
+    Route::get('/manage', 'AdminController@getManage');
+    Route::post('/manage', 'AdminController@postManage');
+
+});
+
+# Restrict these routes to logged in, standard users
+Route::group(['middleware' => ['role:standard']], function() {
     # Show Profile form
     Route::get('/profile', 'UsersController@getProfile');
     # Process Profile Form
@@ -48,7 +58,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/travel', 'UsersController@postTravel');
 });
 
-if(App::environment('local')) {
+
+if (App::environment('local')) {
 
     Route::get('/drop', function() {
 
