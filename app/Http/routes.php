@@ -1,4 +1,5 @@
 <?php
+use PeerReview\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,11 +40,13 @@ Route::post('/register', 'Auth\AuthController@postRegister');
 // Admin routes
 Route::group(['middleware' => ['role:admin']], function () {
     # Show Profile form
+    Route::get('/admin', 'AdminController@getAdmin');
+    Route::post('/admin', 'AdminController@postAdmin');
     Route::get('/dashboard', 'AdminController@getDashboard');
     Route::post('/dashboard', 'AdminController@postDashboard');
-    Route::get('/manage', 'AdminController@getManage');
-    Route::post('/manage', 'AdminController@postManage');
-
+    Route::post('/dashboard-edit', 'AdminController@postDashboardEdit');
+    Route::get('/confirm-delete/{id?}', 'AdminController@getConfirmDelete');
+    Route::get('/delete/{id?}', 'AdminController@getDoDelete');
 });
 
 # Restrict these routes to logged in, standard users

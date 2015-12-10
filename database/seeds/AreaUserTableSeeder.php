@@ -20,19 +20,19 @@ class AreaUserTableSeeder extends Seeder
 
          # First, create an array of all the users we want to associate areas with
          # The *key* will be the user id, and the *value* will be an array of areas.
-        $users =[
-             '1' => ['Solar System','Clusters of Galaxies','Galaxies: Diffuse Emission','Active Galaxies and Quasars'],
-             '2' => ['SN, SNR and Isolated NS', 'Galaxies: Populations', 'Active Galaxies and Quasars'],
-             '3' => ['Solar System', 'Normal Stars and WD', 'BH and NS Binaries'],
-             '4' => ['Solar System','Clusters of Galaxies','Galaxies: Diffuse Emission','Active Galaxies and Quasars'],
-             '5' => ['SN, SNR and Isolated NS', 'Galaxies: Populations', 'Active Galaxies and Quasars'],
-             '6' => ['Solar System', 'Normal Stars and WD', 'BH and NS Binaries'],
-             '7' => ['Solar System','Clusters of Galaxies','Galaxies: Diffuse Emission','Active Galaxies and Quasars'],
-             '8' => ['SN, SNR and Isolated NS', 'Galaxies: Populations', 'Active Galaxies and Quasars'],
-             '9' => ['Solar System', 'Normal Stars and WD', 'BH and NS Binaries'],
-             '10' => ['Solar System','Clusters of Galaxies','Galaxies: Diffuse Emission','Active Galaxies and Quasars'],
-             '11' => ['SN, SNR and Isolated NS', 'Galaxies: Populations', 'Active Galaxies and Quasars'],
-        ];
+         $users =[
+              '1' => ['Solar System','Clusters of Galaxies','Galaxies: Diffuse Emission','Active Galaxies and Quasars'],
+              '2' => ['SN, SNR and Isolated NS', 'Galaxies: Populations', 'Active Galaxies and Quasars'],
+              '3' => ['Galaxies: Populations','Active Galaxies and Quasars', 'Clusters of Galaxies',],
+              '4' => ['Extragalctic Diffuse Emission and Surveys', 'Galactic Diffuse Emission and Surveys'],
+              '5' => ['Galaxies: Diffuse Emission','Galactic Diffuse Emission and Surveys'],
+              '6' => ['Solar System', 'WD Binaries and CV', 'SN, SNR and Isolated NS'],
+              '7' => ['Solar System','Clusters of Galaxies','Galaxies: Diffuse Emission','Active Galaxies and Quasars'],
+              '8' => ['Extragalctic Diffuse Emission and Surveys', 'Galactic Diffuse Emission and Surveys'],
+              '9' => ['Solar System', 'Normal Stars and WD', 'BH and NS Binaries'],
+              '10' => ['Solar System','Clusters of Galaxies','Galaxies: Diffuse Emission','Active Galaxies and Quasars'],
+              '11' => ['SN, SNR and Isolated NS', 'Galaxies: Populations', 'Active Galaxies and Quasars'],
+         ];
 
         # Now loop through the above array, creating a new pivot for each user to area
         foreach ($users as $user_id => $areas) {

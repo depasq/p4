@@ -11,15 +11,15 @@
 <div class="container">
     <div>
         @if(Auth::check())
-            <h3>Admin Dashboard</h3>
+            <h3>Admin Profile</h3>
             <p>Welcome to your admin page, {!! $user->first !!} {!! $user->last !!}.<br>
-            As an admin, you can <a href="/manage">manage</a> the reviewers database. OHHHHH!
+            As an admin, you can manage the reviewers database from your <a href="/dashboard">dashboard</a>.
             <br>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-5"><br>
                         <h4>Your Contact Information</h4>
-                        {!!  Form::open( ['url' => 'manage', 'method' => 'post'] ) !!}
+                        {!!  Form::open( ['url' => 'dashboard', 'method' => 'post'] ) !!}
                         <div class="form-group">
                             {!! Form::label('first','First Name') !!}
                             {!! Form::text('first', $user->first, ['class' => 'form-control'] ) !!}

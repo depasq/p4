@@ -24,8 +24,17 @@ class CreateAreaUserTable extends Migration
              $table->integer('area_id')->unsigned();
 
              # Make foreign keys
-             $table->foreign('user_id')->references('id')->on('users');
-             $table->foreign('area_id')->references('id')->on('areas');
+             $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+             $table->foreign('area_id')
+                ->references('id')
+                ->on('areas')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
          });
      }
 

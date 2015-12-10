@@ -16,10 +16,6 @@
             that we may begin processing your travel and accommodation.<br>When you've updated your
             contact information, please indicate your <a href="/travel">travel</a> preferences.</p>
             <br>
-
-            @if($user->hasRole('admin'))
-                <p>You are special!!</p>
-            @endif
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-5"><br>

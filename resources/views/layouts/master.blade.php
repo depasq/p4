@@ -10,8 +10,8 @@
   </title>
   <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" type='text/css'> -->
   <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet'>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/p4.css" type='text/css'>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/p4.css" type='text/css'>
 
     @yield('head')
 
@@ -51,8 +51,11 @@
                                 </li>
                             @elseif($user->hasRole('admin'))
                                 <li>
-                                    <a href="/manage">Manage Reviewers</a>
+                                    <a href="/dashboard">Dashboard</a>
                                 </li>
+                                <!-- <li>
+                                    <a href="/manage">Manage Reviewers</a>
+                                </li> -->
                             @endif
                         @endif
                         <li>
@@ -65,7 +68,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         @if (Auth::check())
                             @if($user->hasRole('admin'))
-                                <li><a href="/dashboard">{!! $user->first !!}'s Dashboard</a></li>
+                                <li><a href="/admin">  {!! $user->first !!}'s Profile</a></li>
                             @elseif($user->hasRole('standard'))
                                 <li><a href="/profile">{!! $user->first !!}'s Profile</a></li>
                             @endif
@@ -101,10 +104,10 @@
     </div>
 
     <!-- jQuery Version 1.11.1 -->
-    <script src="js/jquery.js"></script>
+    <script src="/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
     {{-- Yield any page specific JS files or anything else you might want at the end of the body --}}
     @yield('body')

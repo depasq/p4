@@ -51,4 +51,14 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function getUsersForDropdown()
+    {
+        $users = $this->orderBy('last', 'ASC')->get();
+        $usersForDropdown = [];
+        foreach ($users as $user) {
+            $usersForDropdown[$user['id']] = $user;
+        }
+        return $usersForDropdown;
+    }
 }
