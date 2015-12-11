@@ -45,6 +45,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/dashboard', 'AdminController@getDashboard');
     Route::post('/dashboard', 'AdminController@postDashboard');
     Route::post('/dashboard-edit', 'AdminController@postDashboardEdit');
+    Route::post('/dashboard-travel', 'AdminController@postDashboardTravel');
     Route::get('/create-user', 'AdminController@getCreateUser');
     Route::post('/create', 'AdminController@postCreateUser');
     Route::get('/confirm-delete/{id?}', 'AdminController@getConfirmDelete');

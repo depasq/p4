@@ -51,6 +51,24 @@ class AdminController extends Controller
         \Session::flash('flash_message',$user->first." ".$user->last."'s profile was updated.");
         return redirect()->back()->with('reviewer', $user);
     }
+    public function postDashboardTravel(Request $request)
+    {
+        $user = \PeerReview\User::find($request['reviewer_id']);
+
+        $user->travel->fromcity = $request['fromcity'];
+        $user->travel->fromstate = $request['fromstate'];
+        $user->travel->fromcountry = $request['fromcountry'];
+        $user->travel->arrivedate = $request['arrivedate'];
+        $user->travel->tocity = $request['tocity'];
+        $user->travel->tostate = $request['tostate'];
+        $user->travel->tocountry = $request['tocountry'];
+        $user->travel->departdate = $request['departdate'];
+        $user->save();
+        $user->travel->save();
+        \Session::flash('flash_message',$user->first." ".$user->last."'s travel info was updated.");
+        return redirect()->back()->with('reviewer', $user);
+    }
+
     public function getAdmin()
     {
          return view('admin.admin');
@@ -112,9 +130,15 @@ class AdminController extends Controller
             \Session::flash('flash_message', 'Reviewer not found.');
             return redirect('/dashboard');
         }
-        $reviewer->delete();
-
-        \Session::flash('flash_message', $reviewer->first.' '.$reviewer->last.' was deleted.');
-        return redirect('/dashboard');
+        if ($reviewer_id != \Auth::user()->id)
+        {
+            $reviewer->delete();
+            \Session::flash('flash_message', $reviewer->first.' '.$reviewer->last.' was deleted.');
+            return redirect('/dashboard');
+        }
+        else {
+            \Session::flash('flash_message', "Sorry, you can't delete yourself!");
+            return redirect('/dashboard');
+        }
     }
 }
