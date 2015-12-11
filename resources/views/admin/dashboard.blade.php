@@ -28,7 +28,7 @@
                          @endforeach
                      </select><br><br>
                      {!! Form::submit('Load Reviewer', ['class' => 'btn btn-primary']) !!}
-                     <a class="btn btn-success" href="/create-reviewer" role="button">Create New Reviewer</a>
+                     <a class="btn btn-success" href="/create-user" role="button">Create New Reviewer</a>
                      {!!  Form::close() !!}
                 </div><hr>
                 @if(isset($reviewer))
