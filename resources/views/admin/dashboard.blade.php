@@ -30,7 +30,8 @@
                                 <option value='{{ $reviewer_id }}' {{ $selected }}> {{ $reviewer_name->last.', '.$reviewer_name->first }} </option>
                          @endforeach
                      </select><br><br>
-                     {!! Form::submit('Go', ['class' => 'btn btn-primary']) !!}
+                     {!! Form::submit('Find Reviewer', ['class' => 'btn btn-primary']) !!}
+                     or <a class="btn btn-success" href="/create-user" role="button">Create New Reviewer</a>
                      {!!  Form::close() !!}
                 </div><hr>
                 @if(isset($reviewer))
@@ -72,9 +73,10 @@
                         {!! Form::label('country','Country') !!}
                         {!! Form::text('country', isset($reviewer->profile->country) ? $reviewer->profile->country : '', ['class' => 'form-control'] ) !!}
                     </div>
+                        {{-- Use a hidden form element to pass the user id to the AdminController! --}}
                         {!! Form::hidden('reviewer_id', $reviewer->id ) !!}
                         {!! Form::submit('Update Reviewer Info', ['class' => 'btn btn-primary']) !!}
-                        <a class="btn btn-danger" href="/confirm-delete/{{$reviewer->id}}" role="button">Delete User!</a> 
+                        <a class="btn btn-danger" href="/confirm-delete/{{$reviewer->id}}" role="button">Delete User!</a>
                         {!!  Form::close() !!}
                 </div>
             </div>

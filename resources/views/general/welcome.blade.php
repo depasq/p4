@@ -13,7 +13,7 @@
     electronically to the CXC in advance of the review in order to aid with
     prioritization during the review itself.<br><br>
     @if(Auth::check())
-        More information will be presented to the logged in user.
+        More specific information will be presented to the logged in user.
     @else <a href="login">Login</a> or <a href="register">Register</a> for more information.
     @endif
 </p>

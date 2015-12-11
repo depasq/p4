@@ -66,6 +66,29 @@ class AdminController extends Controller
         \Session::flash('flash_message', 'Your contact information has been updated.');
         return redirect()->back()->with('user', $user);
     }
+    public function getCreateUser()
+    {
+         return view('admin.create-user');
+    }
+    public function postCreateUser(Request $request)
+    {
+        $reviewer = \PeerReview\User::create([
+            'first' => $request['first'],
+            'last' => $request['last'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+        ]);
+        $standard = \PeerReview\Role::find('2');
+        $profile = new \PeerReview\Profile();
+        $travel = new \PeerReview\Travel();
+        $travel->user_id = $reviewer->id;
+        $profile->user_id = $reviewer->id;
+        $reviewer->travel()->save($travel);
+        $reviewer->profile()->save($profile);
+        $reviewer->attachRole($standard);
+        \Session::flash('flash_message', 'New user has been created');
+        return redirect('/dashboard');
+    }
     public function getConfirmDelete($reviewer_id)
     {
         $reviewer = \PeerReview\User::find($reviewer_id);
@@ -82,10 +105,6 @@ class AdminController extends Controller
             \Session::flash('flash_message', 'Reviewer not found.');
             return redirect('/dashboard');
         }
-        //
-        // if ($reviewer->areas()) {
-        //     $reviewer->areas()->detach();
-        // }
         $reviewer->delete();
 
         \Session::flash('flash_message', $reviewer->first.' '.$reviewer->last.' was deleted.');
