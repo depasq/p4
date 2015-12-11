@@ -32,6 +32,8 @@
         {!! Form::label('password_confirmation', 'Confirm Password') !!}
         {!! Form::password('password_confirmation', ['class' => 'form-control'] ) !!}
     </div>
+    <div class='form-group'>
+        <input type='checkbox' name='admin'> Make User an Admin?<br><br>
     {!! Form::submit('Create Reviewer', ['class' => 'btn btn-primary'] ) !!}
     {!!  Form::close() !!}
 </div>

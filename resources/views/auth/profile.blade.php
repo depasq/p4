@@ -14,7 +14,7 @@
             <p>Welcome to your profile page, {!! $user->first !!} {!! $user->last !!}.<br><br>
             Please confirm your contact information as soon as possible so
             that we may begin processing your travel and accommodation.<br>When you've updated your
-            contact information, please indicate your <a href="/travel">travel</a> preferences.</p>
+            profile information, please indicate your <a href="/travel">travel</a> preferences.</p>
             <br>
         <div class="container-fluid">
             <div class="row">

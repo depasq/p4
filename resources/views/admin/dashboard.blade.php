@@ -31,7 +31,7 @@
                          @endforeach
                      </select><br><br>
                      {!! Form::submit('Find Reviewer', ['class' => 'btn btn-primary']) !!}
-                     or <a class="btn btn-success" href="/create-user" role="button">Create New Reviewer</a>
+                     <a class="btn btn-success" href="/create-user" role="button">Create New Reviewer</a>
                      {!!  Form::close() !!}
                 </div><hr>
                 @if(isset($reviewer))
@@ -76,8 +76,8 @@
                         {{-- Use a hidden form element to pass the user id to the AdminController! --}}
                         {!! Form::hidden('reviewer_id', $reviewer->id ) !!}
                         {!! Form::submit('Update Reviewer Info', ['class' => 'btn btn-primary']) !!}
-                        <a class="btn btn-danger" href="/confirm-delete/{{$reviewer->id}}" role="button">Delete User!</a>
-                        {!!  Form::close() !!}
+                        <a class="btn btn-danger" href="/confirm-delete/{{$reviewer->id}}" role="button">Delete Reviewer</a>
+                        {!!  Form::close() !!}<br><br>
                 </div>
             </div>
             @endif

@@ -78,14 +78,21 @@ class AdminController extends Controller
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
         ]);
-        $standard = \PeerReview\Role::find('2');
+        if ($request['admin'] == 'on')
+        {
+            $role = \PeerReview\Role::find('1');
+        }
+        else
+        {
+            $role = \PeerReview\Role::find('2');
+        }
         $profile = new \PeerReview\Profile();
         $travel = new \PeerReview\Travel();
         $travel->user_id = $reviewer->id;
         $profile->user_id = $reviewer->id;
         $reviewer->travel()->save($travel);
         $reviewer->profile()->save($profile);
-        $reviewer->attachRole($standard);
+        $reviewer->attachRole($role);
         \Session::flash('flash_message', 'New user has been created');
         return redirect('/dashboard');
     }
