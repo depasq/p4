@@ -38,10 +38,11 @@ Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
 
 // Admin routes
-Route::group(['middleware' => ['role:admin']], function () {
-    # Show Profile form
+Route::group(['middleware' => ['auth','role:admin']], function () {
+    # Admin profile form
     Route::get('/admin', 'AdminController@getAdmin');
     Route::post('/admin', 'AdminController@postAdmin');
+    # Admin dashboard for making reviewer edits or creating/deleting accounts
     Route::get('/dashboard', 'AdminController@getDashboard');
     Route::post('/dashboard', 'AdminController@postDashboard');
     Route::post('/dashboard-edit', 'AdminController@postDashboardEdit');
@@ -53,21 +54,16 @@ Route::group(['middleware' => ['role:admin']], function () {
 });
 
 # Restrict these routes to logged in, standard users
-Route::group(['middleware' => ['role:standard']], function() {
-    # Show Profile form
+Route::group(['middleware' => ['auth','role:standard']], function () {
     Route::get('/profile', 'UsersController@getProfile');
-    # Process Profile Form
     Route::post('/profile', 'UsersController@postProfile');
-    # Show Travel Form
     Route::get('/travel', 'UsersController@getTravel');
-    # Process Travel Form
     Route::post('/travel', 'UsersController@postTravel');
 });
 
 
 if (App::environment('local')) {
-
-    Route::get('/drop', function() {
+    Route::get('/drop', function () {
 
         DB::statement('DROP database rws');
         DB::statement('CREATE database rws');
@@ -76,5 +72,4 @@ if (App::environment('local')) {
     });
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-
 };

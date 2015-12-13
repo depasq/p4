@@ -18,7 +18,7 @@ class AdminController extends Controller
     {
         $userModel = new \PeerReview\User();
         $reviewers_for_dropdown = $userModel->getUsersForDropdown();
-
+        # show admin dashboard with reviewers populated in dropdown menu
         return view('admin.dashboard')
             ->with('reviewers_for_dropdown', $reviewers_for_dropdown);
     }
@@ -28,6 +28,7 @@ class AdminController extends Controller
         $reviewer = \PeerReview\User::find($request['reviewer']);
         $userModel = new \PeerReview\User();
         $reviewers_for_dropdown = $userModel->getUsersForDropdown();
+        #show dashboard after selecting a reviewer
         return view('admin.dashboard')
             ->with('reviewers_for_dropdown', $reviewers_for_dropdown)
             ->with('reviewer', $reviewer);
@@ -48,11 +49,18 @@ class AdminController extends Controller
         $user->save();
         $user->profile->save();
 
-        \Session::flash('flash_message',$user->first." ".$user->last."'s profile was updated.");
+        #save changes to selected reviewer and send a session message back to the admin
+        \Session::flash('flash_message', $user->first." ".$user->last."'s profile was updated.");
         return redirect()->back()->with('reviewer', $user);
     }
     public function postDashboardTravel(Request $request)
     {
+        #validation for travel dates
+        $this->validate($request, [
+            'arrivedate' => 'date',
+            'departdate' => 'date',
+        ]);
+
         $user = \PeerReview\User::find($request['reviewer_id']);
 
         $user->travel->fromcity = $request['fromcity'];
@@ -65,7 +73,9 @@ class AdminController extends Controller
         $user->travel->departdate = $request['departdate'];
         $user->save();
         $user->travel->save();
-        \Session::flash('flash_message',$user->first." ".$user->last."'s travel info was updated.");
+
+        # update travel info for selected reviewer and send session message back to admin
+        \Session::flash('flash_message', $user->first." ".$user->last."'s travel info was updated.");
         return redirect()->back()->with('reviewer', $user);
     }
 
@@ -81,6 +91,7 @@ class AdminController extends Controller
         $user->last = $request['last'];
         $user->email = $request['email'];
 
+        #make changes to admin info and send session message back to confirm changes
         \Session::flash('flash_message', 'Your contact information has been updated.');
         return redirect()->back()->with('user', $user);
     }
@@ -90,17 +101,24 @@ class AdminController extends Controller
     }
     public function postCreateUser(Request $request)
     {
+        #validate form fields for creating new user
+        $this->validate($request, [
+            'first' => 'required|max:255',
+            'last' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|confirmed|min:6',
+        ]);
         $reviewer = \PeerReview\User::create([
             'first' => $request['first'],
             'last' => $request['last'],
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
         ]);
+        # if selected, make new user an admin, or not... whatever, it's cool.
         if ($request['admin'] == 'on')
         {
             $role = \PeerReview\Role::find('1');
-        }
-        else
+        } else
         {
             $role = \PeerReview\Role::find('2');
         }
@@ -111,11 +129,13 @@ class AdminController extends Controller
         $reviewer->travel()->save($travel);
         $reviewer->profile()->save($profile);
         $reviewer->attachRole($role);
+        # create new user and send session message back to admin
         \Session::flash('flash_message', 'New user has been created');
         return redirect('/dashboard');
     }
     public function getConfirmDelete($reviewer_id)
     {
+        # if delete user selected, send admin to confirmation page first
         $reviewer = \PeerReview\User::find($reviewer_id);
         return view('admin.delete')
             ->with('reviewer', $reviewer);
@@ -123,20 +143,22 @@ class AdminController extends Controller
 
     public function getDoDelete($reviewer_id)
     {
-
+        # if they really want to do it, delete user
         $reviewer = \PeerReview\User::find($reviewer_id);
 
-        if(is_null($reviewer)) {
+        #make sure there is a user selected to delete
+        if (is_null($reviewer)) {
             \Session::flash('flash_message', 'Reviewer not found.');
             return redirect('/dashboard');
         }
+        # check to make sure admin is not trying to delete their own account, because
+        # that would be awfully strange.
         if ($reviewer_id != \Auth::user()->id)
         {
             $reviewer->delete();
             \Session::flash('flash_message', $reviewer->first.' '.$reviewer->last.' was deleted.');
             return redirect('/dashboard');
-        }
-        else {
+        } else {
             \Session::flash('flash_message', "Sorry, you can't delete yourself!");
             return redirect('/dashboard');
         }

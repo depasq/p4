@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <div class="container-fluid">
-    <h2>Create a New Reviewer Account</h2>
+    <h2>Create a New Account</h2>
 
     @if(count($errors) > 0)
         <ul class='errors'>
@@ -34,7 +34,7 @@
     </div>
     <div class='form-group'>
         <input type='checkbox' name='admin'> Make User an Admin?<br><br>
-    {!! Form::submit('Create Reviewer', ['class' => 'btn btn-primary'] ) !!}
+    {!! Form::submit('Create Account', ['class' => 'btn btn-primary'] ) !!}
     {!!  Form::close() !!}
 </div>
 

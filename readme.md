@@ -1,27 +1,27 @@
-## Laravel PHP Framework
+# CSCI E-15 Project 4 - Chandra Peer Review App
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+## Live URL
+http://p4.dwa15.jdepasquale.com/
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Description
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+This is a Laravel application designed to facilitate the logistics of running the Chandra Observatory's annual Peer Review, a meeting to determine which observing proposals to accept for the upcoming observing cycle.  
 
-## Official Documentation
+The application provides an interface for reviewers to sign-up or login, update their account info and areas of expertise, and specify their travel preferences for the meeting. In addition to the reviewer interface, the site implements roles and permissions via the [Entrust](https://github.com/Zizaco/entrust) package to allow for a unique experience for admin-level users to manage the reviewers database. Admins can edit reviewer accounts by updating their contact info and travel preferences. Additionally, admins are able to both create new user accounts (including new admin accounts) as well as delete existing users.   
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+## Demo
 
-## Contributing
+Coming soon.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+## Details for Teaching Team
 
-## Security Vulnerabilities
+This application uses [bootstrap](http://getbootstrap.com/css/) for the basic formatting with additional custom formatting contained in css/p4.css. The opening splash page of course uses Pure CSS to maintain the look of other parts of the site, but the application is built as a standalone.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+To fully explore the capabilities of the application, please login as both jill@harvard (an admin account) and jamal@harvard (a regular reviewer account). The admin account is where the meat of the "CRUD" capabilities exist. Admins are able to create users, read and update their info, and delete them. Also of note is the use of the faker package to seed the database with users for testing.
 
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+## Outside Code
+* Pure CSS: http://yui.yahooapis.com/pure/0.5.0/pure-min.css
+* Pure CSS Side Menu: css/side-menu.css
+* Bootstrap CSS: http://getbootstrap.com/css/
+* [zizaco/entrust](https://packagist.org/packages/zizaco/entrust)
+* [fzaninotto/faker](https://packagist.org/packages/fzaninotto/faker)

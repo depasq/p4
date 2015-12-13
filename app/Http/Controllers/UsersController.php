@@ -23,7 +23,6 @@ class UsersController extends Controller
         $areaModel = new \PeerReview\Area();
         $areas_for_checkbox = $areaModel->getAreasForCheckboxes();
 
-
         //Use this array to show which areas are already associated with the user
         $areas_for_this_user = [];
         foreach ($user->areas as $area) {
@@ -56,8 +55,7 @@ class UsersController extends Controller
         if ($request->areas)
         {
             $areas = $request->areas;
-        }
-        else
+        } else
         {
             $areas = [];
         }
@@ -73,6 +71,11 @@ class UsersController extends Controller
     }
     public function postTravel(Request $request)
     {
+        $this->validate($request, [
+            'arrivedate' => 'date',
+            'departdate' => 'date',
+        ]);
+
         $user = \PeerReview\User::find(\Auth::user()->id);
 
         if ($request['submit'] == 'Update Travel Prefs') {
@@ -87,8 +90,7 @@ class UsersController extends Controller
             $user->save();
             $user->travel->save();
             \Session::flash('flash_message', 'Your travel information has been updated.');
-        }
-        else {
+        } else {
             $user->travel->fromcity = '';
             $user->travel->fromstate = '';
             $user->travel->fromcountry = '';
