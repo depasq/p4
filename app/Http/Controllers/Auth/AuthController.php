@@ -39,6 +39,9 @@ class AuthController extends Controller
     # Where should the user be redirected to after logging out?
     protected $redirectAfterLogout = '/welcome';
 
+    # Redirect to profile page on successful registration
+    protected $redirectPath = '/profile';
+
     /**
      * Create a new authentication controller instance.
      *
