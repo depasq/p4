@@ -67,6 +67,8 @@
                     something worthwhile to the Chandra program with my final project, I’m going to begin the
                     process of rewriting the peer review website as a Laravel application. </p>
                     <a href="welcome">Enter Peer Review Site</a>
+                <!-- <h3>RWS Schema Diagram</h3>
+                <img src="/img/rws.png"> -->
           </div>
     </section>
 
