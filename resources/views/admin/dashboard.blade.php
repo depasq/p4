@@ -40,6 +40,13 @@
                 </div> --}}
             </div>
             <hr>
+            @if(count($errors) > 0)
+                <ul class='errors'>
+                    @foreach ($errors->all() as $error)
+                        <li><span class='fa fa-exclamation-circle'></span> {{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
             @if(isset($reviewer))
                 @if($reviewer->hasRole('admin'))
                     <h4 id="admin">Note this is an admin account!</h4>

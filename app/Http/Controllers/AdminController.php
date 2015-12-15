@@ -37,6 +37,17 @@ class AdminController extends Controller
     {
         $user = \PeerReview\User::find($request['reviewer_id']);
 
+        $this->validate($request, [
+            'first' => 'required|max:255',
+            'last' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'institution' => 'string',
+            'city' => 'string',
+            'state' => 'string',
+            'zip' => 'string',
+            'country' => 'string',
+        ]);
+
         $user->first = $request['first'];
         $user->last = $request['last'];
         $user->email = $request['email'];
@@ -55,13 +66,19 @@ class AdminController extends Controller
     }
     public function postDashboardTravel(Request $request)
     {
+        $user = \PeerReview\User::find($request['reviewer_id']);
+
         #validation for travel dates
         $this->validate($request, [
+            'fromcity' => 'string',
+            'fromstate' => 'string',
+            'fromcountry' => 'string',
             'arrivedate' => 'date',
+            'tocity' => 'string',
+            'tostate' => 'string',
+            'tocountry' => 'string',
             'departdate' => 'date',
         ]);
-
-        $user = \PeerReview\User::find($request['reviewer_id']);
 
         $user->travel->fromcity = $request['fromcity'];
         $user->travel->fromstate = $request['fromstate'];
@@ -87,9 +104,16 @@ class AdminController extends Controller
     {
         $user = \PeerReview\User::find(\Auth::user()->id);
 
+        $this->validate($request, [
+            'first' => 'required|max:255',
+            'last' => 'required|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+
         $user->first = $request['first'];
         $user->last = $request['last'];
         $user->email = $request['email'];
+        $user->save();
 
         #make changes to admin info and send session message back to confirm changes
         \Session::flash('flash_message', 'Your contact information has been updated.');

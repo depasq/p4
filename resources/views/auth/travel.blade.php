@@ -15,6 +15,13 @@
         @if(Auth::check())
             <p>Please indicate your travel preferences here.</p>
             <br>
+            @if(count($errors) > 0)
+                <ul class='errors'>
+                    @foreach ($errors->all() as $error)
+                        <li><span class='fa fa-exclamation-circle'></span> {{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
 
             {!!  Form::open( ['url' => 'travel', 'method' => 'post'] ) !!}
             Traveling to Boston, please indicate where you're coming from:<br>

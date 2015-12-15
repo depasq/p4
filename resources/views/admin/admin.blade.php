@@ -16,10 +16,17 @@
             As an admin, you can manage the reviewers database from your <a href="/dashboard">dashboard</a>.
             <br>
             <div class="container-fluid">
+                @if(count($errors) > 0)
+                    <ul class='errors'>
+                        @foreach ($errors->all() as $error)
+                            <li><span class='fa fa-exclamation-circle'></span> {{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
                 <div class="row">
                     <div class="col-md-5"><br>
                         <h4>Your Contact Information</h4>
-                        {!!  Form::open( ['url' => 'dashboard', 'method' => 'post'] ) !!}
+                        {!!  Form::open( ['url' => 'admin', 'method' => 'post'] ) !!}
                         <div class="form-group">
                             {!! Form::label('first','First Name') !!}
                             {!! Form::text('first', $user->first, ['class' => 'form-control'] ) !!}

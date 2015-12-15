@@ -39,6 +39,16 @@ class UsersController extends Controller
     {
         $user = \PeerReview\User::find(\Auth::user()->id);
 
+        $this->validate($request, [
+            'first' => 'required|max:255',
+            'last' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'institution' => 'string',
+            'city' => 'string',
+            'state' => 'string',
+            'zip' => 'string',
+            'country' => 'string',
+        ]);
         $user->first = $request['first'];
         $user->last = $request['last'];
         $user->email = $request['email'];
@@ -72,7 +82,13 @@ class UsersController extends Controller
     public function postTravel(Request $request)
     {
         $this->validate($request, [
+            'fromcity' => 'string',
+            'fromstate' => 'string',
+            'fromcountry' => 'string',
             'arrivedate' => 'date',
+            'tocity' => 'string',
+            'tostate' => 'string',
+            'tocountry' => 'string',
             'departdate' => 'date',
         ]);
 
