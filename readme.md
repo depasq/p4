@@ -11,7 +11,7 @@ The application provides an interface for reviewers to sign-up or login, update 
 
 ## Demo
 
-Coming soon.
+https://youtu.be/5cKNFUMKWYg
 
 ## Details for Teaching Team
 
